@@ -147,27 +147,6 @@ check_status "Failed to start kubelet" "kubelet running"
 
 
 # -------- 6. Master Firewall --------
-echo "?? STEP 6: Configure Master Firewall"
-read -p "Is this MASTER node? (y/n): " MASTER
-if [[ "$MASTER" =~ ^[Yy]$ ]]; then
-  sudo firewall-cmd --permanent --add-port=6443/tcp
-  sudo firewall-cmd --permanent --add-port=2379-2380/tcp
-  sudo firewall-cmd --permanent --add-port=10250/tcp
-  sudo firewall-cmd --permanent --add-port=10251/tcp
-  sudo firewall-cmd --permanent --add-port=10252/tcp
-  sudo firewall-cmd --reload
-  check_status "Failed to configure master firewall" "Master firewall configured"
-fi
-
-# -------- 7. Worker Firewall --------
-echo "?? STEP 7: Configure Worker Firewall"
-read -p "Is this WORKER node? (y/n): " WORKER
-if [[ "$WORKER" =~ ^[Yy]$ ]]; then
-  sudo firewall-cmd --permanent --add-port=10250/tcp
-  sudo firewall-cmd --permanent --add-port=30000-32767/tcp
-  sudo firewall-cmd --reload
-  check_status "Failed to configure worker firewall" "Worker firewall configured"
-fi
 
 read -p "Disable firewall completely? (y/n): " DISABLEFW
 if [[ "$DISABLEFW" =~ ^[Yy]$ ]]; then
@@ -251,6 +230,9 @@ if [[ "$IS_MASTER" =~ ^[Yy]$ ]]; then
 else
   echo "ℹ️  This is a WORKER node — skipping Flannel installation."
 fi
+
+
+
 
 
 echo "==========================================================="
