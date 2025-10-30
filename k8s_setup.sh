@@ -253,9 +253,6 @@ else
 fi
 
 
-
-
-
 echo "==========================================================="
 echo "🎉 Kubernetes Networking setup (Flannel only) complete!"
 echo "You can now join workers and deploy workloads."
